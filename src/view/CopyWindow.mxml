@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+					  xmlns:s="library://ns.adobe.com/flex/spark"
+					  xmlns:mx="library://ns.adobe.com/flex/mx"
+					  xmlns:components="view.components.*"
+					  xmlns:view="view.*"
+					  width="100%" height="100%" backgroundAlpha="0.5" backgroundColor="#CCCCCC"
+					  show="this_showHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import dragonBones.utils.ConstValues;
+			
+			import model.CopyDataProxy;
+			import model.ImportDataProxy;
+			
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			private static const CENTER_SPACE:int=28;
+			
+			public function closeCopySession():void
+			{
+				DBGATrackerManager.tracker.trackPageview("/");
+				
+				this.visible = false;
+				CopyDataProxy.getInstance().closeCopySession();
+			}
+			
+			private function cancelBtn_onClick(event:MouseEvent):void
+			{
+				DBGATrackerManager.tracker.trackEvent("copyWindow", "close");
+				closeCopySession();
+			}
+			
+			protected function this_showHandler(event:FlexEvent):void
+			{
+				CopyDataProxy.getInstance().openNewCopySession()
+			}
+			
+			protected function copyBone():void
+			{
+				DBGATrackerManager.tracker.trackEvent("copyWindow", "copyBone");
+				CopyDataProxy.getInstance().executeBoneCopy();
+			}
+			
+			protected function copyBehavior():void
+			{
+				DBGATrackerManager.tracker.trackEvent("copyWindow", "copyBehavior");
+				CopyDataProxy.getInstance().executeBehaviorCopy()
+			}
+			
+			protected function save():void
+			{
+				DBGATrackerManager.tracker.trackEvent("copyWindow", "save");
+				CopyDataProxy.getInstance().save();
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Panel left="20" right="20" top="20" bottom="20" title="{resourceManager.getString('resources','copyBehaviors')}">
+		<s:VGroup width="100%" height="100%" gap="10" paddingBottom="10" paddingLeft="10"
+				  paddingRight="10" paddingTop="10">
+			<s:HGroup width="100%" gap="0">
+				<s:Label width="100%" text="{resourceManager.getString('resources','source')}" verticalAlign="bottom" textAlign="center" fontWeight="bold"/>
+				<s:Spacer width="{CENTER_SPACE}"/>
+				<s:Label width="100%" text="{resourceManager.getString('resources','target')}" verticalAlign="bottom" textAlign="center" fontWeight="bold"/>
+			</s:HGroup>
+			<s:HGroup width="100%" gap="0">
+				<s:DropDownList id="sourceArmatures" width="100%"
+								labelField="{ConstValues.AT + ConstValues.A_NAME}"
+								selectedItem="@{CopyDataProxy.getInstance().selectedSourceArmature}">
+					<s:dataProvider>
+						<s:XMLListCollection source="{CopyDataProxy.getInstance().copyArmaturesData}"/>
+					</s:dataProvider>
+				</s:DropDownList>
+				<s:Spacer width="{CENTER_SPACE}"/>
+				<s:DropDownList id="destinationArmatures" width="100%"
+								selectedItem="@{CopyDataProxy.getInstance().selectedDestinationArmature}"
+								labelField="{ConstValues.AT + ConstValues.A_NAME}">
+					<s:dataProvider>
+						<s:XMLListCollection source="{CopyDataProxy.getInstance().copyArmaturesData}"/>
+					</s:dataProvider>
+				</s:DropDownList>
+			</s:HGroup>
+			<mx:VDividedBox id="dividedBox" width="100%" height="100%">
+				<mx:TabNavigator id="boneAndBehavior" width="100%" height="100%" paddingBottom="2" paddingLeft="2"
+								 paddingRight="2" paddingTop="2">
+					<s:NavigatorContent label="{resourceManager.getString('resources','bone')}" width="100%" height="100%">
+						<s:HGroup width="100%" height="100%" gap="0">
+							<mx:Tree width="100%" height="100%"
+									 labelField="{ConstValues.AT + ConstValues.A_NAME}" textRollOverColor="#CCCCCC"
+									 textSelectedColor="#CCCCCC"
+									 folderClosedIcon="@Embed(source='./assets/armature_icon.png')"
+									 folderOpenIcon="@Embed(source='./assets/armature_open_icon.png')"
+									 defaultLeafIcon="@Embed(source='./assets/bone_icon.png')">
+								<mx:dataProvider>
+									<s:XMLListCollection source="{CopyDataProxy.getInstance().selectedSourceBoneList}">
+									</s:XMLListCollection>
+								</mx:dataProvider>
+							</mx:Tree>
+							<s:Group height="100%" width="{CENTER_SPACE}">
+								<s:Button icon="@Embed(source='./assets/copy_icon.png')" 
+										  width="24" height="24" horizontalCenter="0" verticalCenter="0"  
+										  enabled="{CopyDataProxy.getInstance().boneCopyable}" 
+										  click="copyBone()"/>
+							</s:Group>
+							<mx:Tree width="100%" height="100%"
+									 labelField="{ConstValues.AT + ConstValues.A_NAME}" textRollOverColor="#CCCCCC"
+									 textSelectedColor="#CCCCCC"
+									 folderClosedIcon="@Embed(source='./assets/armature_icon.png')"
+									 folderOpenIcon="@Embed(source='./assets/armature_open_icon.png')"
+									 defaultLeafIcon="@Embed(source='./assets/bone_icon.png')">
+								<mx:dataProvider>
+									<s:XMLListCollection source="{CopyDataProxy.getInstance().selectedDestinaionBonelist}">
+									</s:XMLListCollection>
+								</mx:dataProvider>
+							</mx:Tree>
+						</s:HGroup>
+					</s:NavigatorContent>
+					<s:NavigatorContent label="{resourceManager.getString('resources','behavior')}" width="100%" height="100%">
+						<s:HGroup width="100%" height="100%" gap="0">
+							<s:DataGrid width="100%" height="100%" sortableColumns="false" gridClick="CopyDataProxy.getInstance().playSourceBehavior(event.item)"  selectionMode="multipleRows" selectedItems="@{CopyDataProxy.getInstance().selectedMultipleSourceBehaviors}">
+								<s:columns>
+									<s:ArrayList>
+										<s:GridColumn dataField="{ConstValues.AT + ConstValues.A_NAME}" headerText="{resourceManager.getString('resources','behaviorList')}"/>
+									</s:ArrayList>
+								</s:columns>
+								<s:dataProvider>
+									<s:XMLListCollection source="{CopyDataProxy.getInstance().selectedSourceBehaviorList}">
+									</s:XMLListCollection>
+								</s:dataProvider>
+							</s:DataGrid>
+							<s:Group height="100%" width="{CENTER_SPACE}">
+								<s:Button icon="@Embed(source='./assets/copy_icon.png')" 
+										  width="24" height="24" horizontalCenter="0" verticalCenter="0"  
+										  enabled="{CopyDataProxy.getInstance().behaviorCopyable}" 
+										  click="copyBehavior()"/>
+							</s:Group>
+							<s:Group width="100%" height="100%">
+								<s:DataGrid width="100%" height="100%" sortableColumns="false" gridClick="CopyDataProxy.getInstance().playDestinationBehavior(event.item)" selectionMode="multipleRows" selectedItems="@{CopyDataProxy.getInstance().selectedMultipleDestinationBehaviors}">
+									<s:columns>
+										<s:ArrayList>
+											<s:GridColumn dataField="{ConstValues.AT + ConstValues.A_NAME}" headerText="{resourceManager.getString('resources','behaviorList')}"/>
+										</s:ArrayList>
+									</s:columns>
+									<s:dataProvider>
+										<s:XMLListCollection source="{CopyDataProxy.getInstance().selectedDestinaionBehaviorList}">
+										</s:XMLListCollection>
+									</s:dataProvider>
+								</s:DataGrid>
+								<s:Button right="0" width="50" label="del"
+										  click="CopyDataProxy.getInstance().executeBehaviorDelete()"
+										  enabled="{CopyDataProxy.getInstance().behaviorDeletable}"/>
+							</s:Group>
+						</s:HGroup>
+					</s:NavigatorContent>
+				</mx:TabNavigator>
+				<s:HGroup width="100%" height="100%" gap="{CENTER_SPACE}">
+					<components:AnimationReviewPanel width="100%" height="100%" armature="{CopyDataProxy.getInstance().sourceDisplayArmature}"/>
+					<components:AnimationReviewPanel width="100%" height="100%" armature="{CopyDataProxy.getInstance().destinationDisplayArmature}"/>
+				</s:HGroup>
+			</mx:VDividedBox>
+			
+			<s:HGroup width="100%" gap="0">
+				<s:Spacer width="800%"/>
+				<s:Button label="{resourceManager.getString('resources','save')}" click="save()"/>
+				<s:Spacer width="100%"/>
+				<s:Button label="{resourceManager.getString('resources','cancel')}" click="closeCopySession()"/>
+				<s:Spacer width="800%"/>
+			</s:HGroup>
+		</s:VGroup>
+	</s:Panel>
+</s:SkinnableContainer>
