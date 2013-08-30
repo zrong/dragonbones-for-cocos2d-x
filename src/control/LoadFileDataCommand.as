@@ -3,6 +3,7 @@ package control
 	import dragonBones.objects.DecompressedData;
 	import dragonBones.objects.XMLDataParser;
 	import dragonBones.utils.BytesType;
+	import dragonBones.utils.ConstValues;
 	
 	import flash.display.BitmapData;
 	import flash.display.Loader;
@@ -155,7 +156,6 @@ package control
 						{
 							if(!zipFile.isDirectory)
 							{
-								
 								if(zipFile.name == GlobalConstValues.SKELETON_XML_NAME)
 								{
 									_skeletonXMLProxy.skeletonXML = XML(zipFile.data);
@@ -181,6 +181,15 @@ package control
 										var textureBytes:ByteArray = zipFile.data;
 									}
 								}
+								//==== 2013-08-30 zrong start
+								else if(zipFile.name == GlobalConstValues.SKELETON_AND_TEXTURE_XML_NAME)
+								{
+									var __entireXML:XML = XML(zipFile.data);
+									_skeletonXMLProxy.textureAtlasXML = __entireXML[ConstValues.TEXTURE_ATLAS][0].copy();
+									delete __entireXML[ConstValues.TEXTURE_ATLAS];
+									_skeletonXMLProxy.skeletonXML = __entireXML; 
+								}
+								//==== 2013-08-30 zrong end
 							}
 						}
 						zip.clear();

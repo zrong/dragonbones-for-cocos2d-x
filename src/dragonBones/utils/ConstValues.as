@@ -62,6 +62,14 @@
 		public static const V_SOUND_RIGHT_TO_LEFT:String = "rl";
 		public static const V_SOUND_FADE_IN:String = "in";
 		public static const V_SOUND_FADE_OUT:String = "out";
+		
+		//====2013-08-30 zrong start
+		//for cocos2d-x
+		public static const A_COCOS2D_X:String = "cocos2d_x";
+		public static const A_COCOS2D_Y:String = "cocos2d_y";
+		public static const A_COCOS2D_PIVOT_X:String = "cocos2d_pX";
+		public static const A_COCOS2D_PIVOT_Y:String = "cocos2d_pY";
+		//====2013-08-30 zrong end
 	}
 
 }

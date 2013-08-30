@@ -113,6 +113,11 @@ package model
 			dataExportArrayCollectio.source.push(ResourceManager.getInstance().getString('resources','ZIPwithXMLAndPNG'));
 			dataExportArrayCollectio.source.push(ResourceManager.getInstance().getString('resources','ZIPwithXMLAndPNGs'));
 			
+			//====2013-08-30 zrong start
+			//增加cocos2d-x专用的格式
+			dataExportArrayCollectio.source.push(ResourceManager.getInstance().getString('resources','ZIPwithXMLAndPNGsCocos2dx'));
+			//====2013-08-30 zrong end
+			
 			setData(LANGUAGE_ID, _languageID);
 		}
 		public var languageArrayCollection:ArrayCollection = new ArrayCollection([

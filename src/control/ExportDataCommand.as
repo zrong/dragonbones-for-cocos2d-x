@@ -193,6 +193,7 @@ package control
 						break;
 					}
 				case 4:
+				case 5:
 					try
 					{
 						date = new Date();
@@ -220,27 +221,32 @@ package control
 							subBitmapData.dispose();
 						}
 						//====2013-08-29 zrong start
-						//为了支持cocos2d-x需要的格式，取消原来的导出
-						/*
-						zip.add(
-							_skeletonXMLProxy.skeletonXML.toXMLString(), 
-							GlobalConstValues.SKELETON_XML_NAME, 
-							date
-						);
-						zip.add(
-							_skeletonXMLProxy.textureAtlasXML.toXMLString(), 
-							GlobalConstValues.TEXTURE_ATLAS_XML_NAME, 
-							date
-						);
-						*/
+						//原来的格式依然不变
+						if(_exportType == 4)
+						{
+							zip.add(
+								_skeletonXMLProxy.skeletonXML.toXMLString(), 
+								GlobalConstValues.SKELETON_XML_NAME, 
+								date
+							);
+							zip.add(
+								_skeletonXMLProxy.textureAtlasXML.toXMLString(), 
+								GlobalConstValues.TEXTURE_ATLAS_XML_NAME, 
+								date
+							);
+						}
 						//为了cocos2d-x需要，合并两个XML
-						var __skeletonXML:XML = _skeletonXMLProxy.skeletonXML.copy();
-						__skeletonXML.appendChild(_skeletonXMLProxy.textureAtlasXML);
-						zip.add(
-							__skeletonXML.toXMLString(), 
-							GlobalConstValues.SKELETON_XML_NAME, 
-							date
-						);
+						else
+						{
+							var __skeletonXML:XML = _skeletonXMLProxy.skeletonXML.copy();
+							__skeletonXML.appendChild(_skeletonXMLProxy.textureAtlasXML);
+							zip.add(
+								__skeletonXML.toXMLString(), 
+								//使用新的文件名
+								GlobalConstValues.SKELETON_AND_TEXTURE_XML_NAME, 
+								date
+							);
+						}
 						//====2013-08-29 zrong end
 						exportSave(
 							zip.encode(), 

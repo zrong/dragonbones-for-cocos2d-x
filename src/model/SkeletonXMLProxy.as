@@ -156,6 +156,25 @@ package model
 				{
 					xml.@[ConstValues.A_HEIGHT] = Math.ceil(Number(xml.@[ConstValues.A_HEIGHT]) * scale);
 				}
+				//====2013-08-30 zrong start
+				//for cocos2d-x
+				if(xml.@[ConstValues.A_COCOS2D_X].length() > 0)
+				{
+					xml.@[ConstValues.A_COCOS2D_X] = Math.ceil(Number(xml.@[ConstValues.A_COCOS2D_X]) * scale);
+				}
+				if(xml.@[ConstValues.A_COCOS2D_Y].length() > 0)
+				{
+					xml.@[ConstValues.A_COCOS2D_Y] = Math.ceil(Number(xml.@[ConstValues.A_COCOS2D_Y]) * scale);
+				}
+				if(xml.@[ConstValues.A_COCOS2D_PIVOT_X].length() > 0)
+				{
+					xml.@[ConstValues.A_COCOS2D_PIVOT_X] = Math.ceil(Number(xml.@[ConstValues.A_COCOS2D_PIVOT_X]) * scale);
+				}
+				if(xml.@[ConstValues.A_COCOS2D_PIVOT_Y].length() > 0)
+				{
+					xml.@[ConstValues.A_COCOS2D_PIVOT_Y] = Math.ceil(Number(xml.@[ConstValues.A_COCOS2D_PIVOT_Y]) * scale);
+				}
+				//====2013-08-30 zrong end
 			}
 		}
 		
