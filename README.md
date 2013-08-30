@@ -46,3 +46,5 @@ Copyright 2012-2013 the DragonBones Team
 [db224cocos2dx]: http://zengrong.net/post/1915.htm
 [dbdp22]: https://github.com/DragonBones/SkeletonAnimationDesignPanel/tree/V2.2
 [dbl22]: https://github.com/DragonBones/SkeletonAnimationLibrary/tree/V2.2
+[c1]: https://github.com/zrong/dragonbones-for-cocos2d-x/blob/master/src/control/ExportDataCommand.as#L222
+[c2]: https://github.com/zrong/dragonbones-for-cocos2d-x/tree/master/build/DragonBonesDesignPanel
