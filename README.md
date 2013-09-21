@@ -30,7 +30,7 @@ Following steps show you how to use the source code:
 2. Make sure you have got [SeletonAnimationLibrary](https://github.com/DragonBones/SkeletonAnimationLibrary) project.  
 3. Open Flash Builder and create a Flex project named SkeletonAnimationDesignPanel.  
 4. Change project location to SkeletonAnimationDesignPanel's location to make sure the IDE can find the source code.
-5  Change complie parameters to -locale en_US zh_CN ja_JP fr_FR -source-path ./locale/{locale} -allow-source-path-overlap=true
+5. Change complie parameters to -locale en_US zh_CN ja_JP fr_FR -source-path ./locale/{locale} -allow-source-path-overlap=true
 6. Import SeletonAnimationLibrary project.  
 7. (Optional) Change project theme to "Graphite".  
 8. Test and have fun.
