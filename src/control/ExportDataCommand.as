@@ -329,7 +329,6 @@ package control
 		private function getPlistFile():ZwoptexFormat2File
 		{
 			var __plist:ZwoptexFormat2File = new ZwoptexFormat2File();
-			var __frames:PDict = new PDict();
 			for each(var __subTexture:XML in _skeletonXMLProxy.textureAtlasXML[ConstValues.SUB_TEXTURE])
 			{
 				var __frame:ZwoptexFormat2Frame = new ZwoptexFormat2Frame();
@@ -342,29 +341,11 @@ package control
 					setRotated(false).
 					setSourceColorRect(0,0,int(__subTexture.@width.toString()), int(__subTexture.@height.toString())).
 					setSourceSize(int(__subTexture.@width.toString()), int(__subTexture.@height.toString()));
-				__plist.addFrame(__subTexture.@name.toString(), __frame);
-//				__frame.addValue("frame", 
-//					"{{"+__subTexture.@x.toString()+","+__subTexture.@y.toString()+
-//					"},{"+__subTexture.@width.toString()+","+__subTexture.@height.toString()+"}}");
-//				__frame.addValue("offset", "{0,0}"); 
-//				__frame.addValue("rotated", false);
-//				__frame.addValue("sourceColorRect",
-//					"{{0,0},{"+
-//					__subTexture.@width.toString()+","+__subTexture.@height.toString()+"}}");
-//				__frame.addValue("sourceSize", "{"+__subTexture.@width.toString()+","+__subTexture.@height.toString()+"}"); 
-//				__frames.addValue(__subTexture.@name.toString(), __frame as PDict);
+				//name必须要加上.png扩展名，否则Cocos2d-X的解析库会不认
+				__plist.addFrame(__subTexture.@name.toString()+GlobalConstValues.PNG_SUFFIX, __frame);
 			}
 			var __name:String = _importDataProxy.skeletonName + (GlobalConstValues.PNG_SUFFIX);
 			__plist.setRealTextureFileName(__name).setTextureFileName(__name).setSize(_bitmapData.width, _bitmapData.height);
-//			var __metadata:PDict = new PDict();
-//			__metadata.addValue("format", 2);
-//			__metadata.addValue("realTextureFileName", __name);
-//			__metadata.addValue("size", "{"+_bitmapData.width+","+_bitmapData.height+"}");
-//			__metadata.addValue("textureFileName", __name);
-//			var __rootDict:PDict = new PDict();
-//			__rootDict.addValue("frames", __frames);
-//			__rootDict.addValue("metadata", __metadata);
-//			__plist.root = __rootDict;
 			return __plist;
 		}
 		//====2013-09-22 zrong end

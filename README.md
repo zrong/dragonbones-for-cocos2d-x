@@ -7,8 +7,9 @@ DragonBones2.2 for cocos2d-x
 
 * 这个项目包含了 [SkeletonAnimationLibrary][dbl22] 和 [SkeletonAnimationDesignPanel][dbdp22] 项目v2.2的内容，做了极少量的修改；
 * jsfl的修改，直接比较 [这3个文件即可][c2]。其中 `skeleton.jsfl.original` 是原始文件， `skeleton.jsfl.20cocos2dx` 是2.0修改版提供的文件， `skeketon.jsfl` 是我修改的文件；
-* 导出面板中，我增加了一种导出类型 “Zip(XML and PNGs, for cocos2d-x)”；
+* 导出面板中，我增加了两种导出类型 “Zip(XML and PNGs, for cocos2d-x)”、“Zip(XML+PLIST+PNG, for cocos2d-x)”；
 * ![export panel][export]
+* 如果选择后面一种，可以直接输出XML、PLIST和拼合后的PNG文件，这样就不必再使用其他工具将分离的PNG拼合了；
 * 我修改了导入代码，现在也能在DesignPanel中导入使用上面的类型导出的资源；
 * 其他的修改，请直接比较源码；
 * 如何使用可以看这里： [在cocos2d-x中使用DragonBones][using]。
