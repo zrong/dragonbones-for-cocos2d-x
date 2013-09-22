@@ -117,6 +117,10 @@ package model
 			//增加cocos2d-x专用的格式
 			dataExportArrayCollectio.source.push(ResourceManager.getInstance().getString('resources','ZIPwithXMLAndPNGsCocos2dx'));
 			//====2013-08-30 zrong end
+			//====2013-09-22 zrong start
+			//增加cocos2d-x专用的格式，同时提供PLIST文件
+			dataExportArrayCollectio.source.push(ResourceManager.getInstance().getString('resources','ZIPwithXMLPLISTPNGsCocos2dx'));
+			//====2013-09-22 zrong end
 			
 			setData(LANGUAGE_ID, _languageID);
 		}

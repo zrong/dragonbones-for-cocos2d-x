@@ -10,6 +10,8 @@
 		
 		//====2013-08-30 zrong start
 		public static const SKELETON_AND_TEXTURE_XML_NAME:String = "skeleton_and_texture.xml";
+		public static const XML_SUFFIX:String = ".xml";
+		public static const PLIST_SUFFIX:String = ".plist";
 		//====2013-08-30 zrong end
 	}
 }
