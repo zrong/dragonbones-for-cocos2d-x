@@ -41,6 +41,7 @@ var A_DISPLAY_INDEX = "dI";
 var A_EVENT = "evt";
 var A_SOUND = "sd";
 var A_SOUND_EFFECT = "sdE";
+var A_TWEEN_FRAME = "tweenFrame";
 var A_TWEEN_EASING ="twE";
 var A_TWEEN_ROTATE_ ="twR_";
 var A_TWEEN_ROTATE ="twR";
@@ -696,6 +697,7 @@ function generateFrame(_frame, _boneName, _symbol, _z, _noAutoEasing){
 		if(isNoEasingFrame(_frame))
 		{
 			_frameXML.@[A_TWEEN_EASING] = NaN;
+			_frameXML.@[A_TWEEN_FRAME] = 0;
 		}
 		else if(_frame.tweenType == "motion")
 		{
