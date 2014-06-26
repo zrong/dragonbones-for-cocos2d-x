@@ -1,3 +1,9 @@
+DragonBonesCPP
+======================
+DragonBones开发组已经开发了 [DragonBonesCPP][dbcpp] 版本，支持 cocos2d-x 2.x 和 3.x 引擎。因此，建议改用 DragonBonesCPP，并使用官方的 [DragonBones DesignPanel][offical] 。
+
+详细介绍请看这里：[DragonBones 官方C++版本 for cocos2d-x][ccarmature2dbcpp] 。
+
 DragonBones2.2 for cocos2d-x
 ======================
 
@@ -53,3 +59,6 @@ Copyright 2012-2013 the DragonBones Team
 [c1]: https://github.com/zrong/dragonbones-for-cocos2d-x/blob/master/src/control/ExportDataCommand.as#L222
 [c2]: https://github.com/zrong/dragonbones-for-cocos2d-x/tree/master/build/DragonBonesDesignPanel
 [export]: build/export.png
+[offical]: http://github.com/DragonBones/SkeletonAnimationDesignPanel 
+[ccarmature2dbcpp]: http://zengrong.net/post/2106.htm
+[dbcpp]: https://github.com/DragonBones/DragonBonesCPP
